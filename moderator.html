@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <h1>Moderator</h1>
+</head>
+<body>
+
+<table>
+      <tr>
+        <th align="left">Name</th>
+        <th align="left">User</th>
+        <th align="left">Date</th>
+        <th align="left">Claimed</th>
+      </tr>
+      {% for l in letters: %}
+        <tr>
+          <td>{{l.name()}}</td>
+          <td>{{l.user()}}</td>
+          <td>{{l.date_m()}}</td>
+            <td>{{l.claimed()}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+
+</body>
+</html>
