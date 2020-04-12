@@ -13,7 +13,7 @@ from letter import Letter
 from random import randint
 
 
-#DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ['DATABASE_URL']
 
 # -----------------------------------------------------------------------
 
