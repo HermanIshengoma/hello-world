@@ -103,11 +103,7 @@ class Database:
             letters_n = []
             users = {}
             row = cur.fetchone()
-            # while row is not None:
-            #  letters_n.append(row[0])
-            # users.append(row[1])
-            # row = cur.fetchone()
-
+           
             # a list of letters to send out
             # make a dictionary with keys=users and values=[letters_composed_by_user_list]
             while row is not None:
@@ -121,6 +117,7 @@ class Database:
                     users.update({row[1]: [row[0]]})
 
                 row = cur.fetchone()
+                
             n = len(letters_n)
             # list tracks which letters a given user shall receive
             send = []
@@ -128,14 +125,20 @@ class Database:
             # SHOULD PROBABLY HAVE TO DO SOMETHING IN CASE A USER MADE ALL THE LETTERS OR IF THERE AREN'T ENOUGH LETTERS
             # TO GO AROUND
             for user in users:
-                # user receives letters in accordance with how many they sent, currently 1:1 ratio
-                while i < len(users[user]):
-                    # randomly select a letter
-                    x = randint(0, n - 1)
-                    # make sure user didn't write the letter and hasn't already received the letter
-                    if letters_n[x] not in users[user] and letters_n[x] not in send:
-                        send.append(letters_n[x])
-                        i += 1
+                # case when there aren't enough letters
+                if len(users[user]) > n/2:
+                    for x in users:
+                        if x is not user:
+                            send = send + users[user]
+                else:            
+                    # user receives letters in accordance with how many they sent, currently 1:1 ratio
+                    while i < len(users[user]):
+                        # randomly select a letter
+                        x = randint(0, n - 1)
+                        # make sure user didn't write the letter and hasn't already received the letter
+                        if letters_n[x] not in users[user] and letters_n[x] not in send:
+                            send.append(letters_n[x])
+                            i += 1
 
                 # update the database
                 cmd = "SELECT l_received FROM public.\"Users\" WHERE id = CAST((%s) as text)"
@@ -152,41 +155,6 @@ class Database:
 
                 i = 0
                 send = []
-
-
-
-            # # set a list that generates the number of times each user should receive a letter.
-            # times = []
-            # for i in range(n):
-            #     times.append(randint(1, n/2))
-            #
-            # cmd1 = "INSERT INTO User (json_test) WHERE l_name = CAST((%s) TO TEXT) VALUES ((%s))"
-            # send = []
-            # for i in range(n):
-            #     for j in range(times[i]):
-            #         letter_n = random.choice(letters)
-            #         # don't want the user that sent the letter to receive it
-            #         if i != letters.index(letter_n):
-            #             # make sure not to send the same letter twice
-            #             if letter_n not in send:
-            #                 send.append(letter_n)
-
-            # for i in range(n):
-            # concentrating on the letters:
-            # repeat a random number of times
-
-            # randomly generate an index
-            # check if user already sent it
-
-            # while letters_n:
-            #   letter_n = letters_n.pop()
-            #  i = 0
-            #  while i is not index and len(letter_n) is not 1:
-            #     i = randint(i, len(letters_n))
-            # user = users.pop(i)
-            # get the l_received list
-
-            # append the letter to the list
 
             cur.close()
             return
