@@ -38,11 +38,6 @@ def getCurrentTime():
 
 @app.route('/', methods=["GET", "POST"])
 def main_page():
-    if getCurrentTime().split(" ")[0] == 'Wed':
-        database = Database()
-        database.connect()
-        database.send_out()
-        database.disconnect()
     
     html = render_template('mainpage.html')
     response = make_response(html)
@@ -118,4 +113,10 @@ if __name__ == '__main__':
     database.disconnect()
     
     app.run(host='0.0.0.0', port=int(argv[1]), debug=True)
+    
+    if getCurrentTime().split(" ")[0] == 'Wed':
+        database = Database()
+        database.connect()
+        database.send_out()
+        database.disconnect()
 
