@@ -89,7 +89,7 @@ def handle_letter():
 def moderator():
     database = Database()
     database.connect()
-    letters = database.letter_queue()
+    # letters = database.letter_queue()
 
     database.send_out()
 
