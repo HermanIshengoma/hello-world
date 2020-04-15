@@ -110,7 +110,6 @@ class Database:
             while row is not None:
                 letters_n.append(row[0])
                 x = users.get(row[1])
-                print(row[1])
                 if x is not None:
                     x.append(row[0])
                     users[row[1]] = x
