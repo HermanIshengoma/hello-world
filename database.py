@@ -99,7 +99,7 @@ class Database:
             cur = self._conn.cursor()
 
             # get the letters and users from the database
-            cmd = "SELECT l_name, user_id FROM public.\"letter\" WHERE l_approved1 = true"
+            cmd = "SELECT l_name, user_id FROM public.\"letter\" WHERE l_approved = true"
             cur.execute(cmd)
             letters_n = []
             users = {}
