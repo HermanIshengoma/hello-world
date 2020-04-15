@@ -66,6 +66,7 @@ class Database:
     def letter_queue(self):
         try:
             cur = self._conn.cursor()
+            print('here')
             cmd = "SELECT * FROM public.\"letter\""
             cur.execute(cmd)
             letters = []
