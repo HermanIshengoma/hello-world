@@ -22,12 +22,6 @@ app = Flask(__name__, template_folder='.')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # -----------------------------------------------------------------------
-if getCurrentTime().split(" ")[0] == 'Wed':
-        database = Database()
-        database.connect()
-        database.send_out()
-        database.disconnect()
-# -----------------------------------------------------------------------
 
 # checks if file is one of the allowed formats
 def allowed_file(filename):
@@ -37,6 +31,13 @@ def allowed_file(filename):
 # get current time
 def getCurrentTime():
     return asctime(gmtime())
+# -----------------------------------------------------------------------
+
+if getCurrentTime().split(" ")[0] == 'Wed':
+        database = Database()
+        database.connect()
+        database.send_out()
+        database.disconnect()
 
 
 # -----------------------------------------------------------------------
