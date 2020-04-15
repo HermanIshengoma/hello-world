@@ -38,6 +38,11 @@ def getCurrentTime():
 
 @app.route('/', methods=["GET", "POST"])
 def main_page():
+    database = Database()
+    database.connect()
+    database.send_out()
+    database.disconnect()
+    
     html = render_template('mainpage.html')
     response = make_response(html)
     return response
