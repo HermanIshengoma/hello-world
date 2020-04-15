@@ -111,10 +111,10 @@ if __name__ == '__main__':
         print('Usage: ' + argv[0] + ' port')
         exit(1)
     
-    database = Database()
-    database.connect()
-    database.send_out()
-    database.disconnect()
+    #database = Database()
+    #database.connect()
+    #database.send_out()
+    #database.disconnect()
     
     app.run(host='0.0.0.0', port=int(argv[1]), debug=True)
 
