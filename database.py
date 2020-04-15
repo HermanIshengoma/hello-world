@@ -72,7 +72,7 @@ class Database:
             letters = []
             rows = cur.fetchall()
             for row in rows:
-                letters.append(Letter(row[0], row[2], row[1], row[3], row[4], row[5], row[6], row[7]))
+                letters.append(Letter(row[0], row[1], row[2], row[4], row[5], row[6], row[3]))
 
             cur.close()
             return letters
