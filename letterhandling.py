@@ -110,11 +110,11 @@ if __name__ == '__main__':
     if len(argv) != 2:
         print('Usage: ' + argv[0] + ' port')
         exit(1)
-    if getCurrentTime().split(" ")[0] == 'Wed':
-        database = Database()
-        database.connect()
-        database.send_out()
-        database.disconnect()
+    
+    database = Database()
+    database.connect()
+    database.send_out()
+    database.disconnect()
     
     app.run(host='0.0.0.0', port=int(argv[1]), debug=True)
 
