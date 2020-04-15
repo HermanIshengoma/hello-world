@@ -21,7 +21,12 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__, template_folder='.')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
+# -----------------------------------------------------------------------
+if getCurrentTime().split(" ")[0] == 'Wed':
+        database = Database()
+        database.connect()
+        database.send_out()
+        database.disconnect()
 # -----------------------------------------------------------------------
 
 # checks if file is one of the allowed formats
@@ -114,9 +119,5 @@ if __name__ == '__main__':
     
     app.run(host='0.0.0.0', port=int(argv[1]), debug=True)
     
-    if getCurrentTime().split(" ")[0] == 'Wed':
-        database = Database()
-        database.connect()
-        database.send_out()
-        database.disconnect()
+    
 
