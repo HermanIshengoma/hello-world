@@ -1,0 +1,80 @@
+# entry.S
+# COS 318, Fall 2019: Project 2 Non-Preemptive Kernel
+# Entry points into the kernel for processes and threads
+
+.data
+
+.text
+.code32
+
+.globl  kernel_entry
+kernel_entry:
+    ret
+
+.globl  scheduler_entry
+scheduler_entry:
+    // if pid == 0 and ran == 0 okwy, then go to
+    xchg %bx, %bx
+    // pid == 0?
+    movl %eax, (to_store)
+    movl current_running, %eax
+    addl $16, %eax
+    cmpl $0, (%eax)
+    jne not_first
+    
+    // ran == 0?
+    movl current_running, %eax
+    addl $8, %eax
+    cmpl $0, (%eax)
+    je load_regs
+
+not_first:
+    //movl (to_store), %eax
+    // push here
+    //call scheduler
+
+load_regs:
+    
+    movl (current_running), %esp
+    popl %ebp
+    popl %edi
+    popl %esi
+    popl %edx
+    popl %ecx
+    popl %ebx
+    popl %eax
+    // if run == 0 we should jmp to entry point not return I think
+    popfl
+        
+    ret
+
+.global zero_entry
+zero_entry:
+    xchg %bx, %bx
+    movl %ebx, (to_store)
+    movl %esp, %ebx     // CHANGE THIS SUCH THAT NO USE OF REGISTERS!! 
+    // we first need to set the esp to equal to its start
+    movl (current_running), %esp
+    // we next need to put entry point
+    movl %eax, (to_store2)
+    movl current_running, %eax
+    addl $8, %eax
+    pushl 8(%eax)       //entry point
+    pushl $0    // eflags
+    pushl $0    //, %eax
+    pushl $0    //, %ebx
+    pushl $0    //, %ecx
+    pushl $0    //, %edx
+    pushl $0    //  , %esi
+    pushl $0    //, %edi
+    pushl $0    //, %ebp
+    
+    movl %esp, (current_running) //, %esp
+    // pushl $0
+    // popfl
+    //xchg %bx, %bx
+    movl %ebx, %esp
+    movl (to_store), %ebx
+    movl (to_store2), %eax
+    //xchg %bx, %bx
+    ret
